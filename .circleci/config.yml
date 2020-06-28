@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   aws-s3: circleci/aws-s3@1.0.11
+  snyk: snyk/snyk@0.0.8
 
 jobs:
   build:
@@ -30,6 +31,11 @@ jobs:
       - run: npm run lint
 
       - run: npm run test
+
+      - snyk/scan:
+          fail-on-issues: false
+          monitor-on-build: false
+          severity-threshold: high
 
       - aws-s3/sync:
           from: build
