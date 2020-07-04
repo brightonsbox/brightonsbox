@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   aws-s3: circleci/aws-s3@1.0.11
+  cypress: cypress-io/cypress@1.23.0
   snyk: snyk/snyk@0.0.8
 
 jobs:
@@ -31,6 +32,8 @@ jobs:
       - run: npm run lint
 
       - run: npm run test
+
+      - run: npm run ci:cypress-run
 
       - snyk/scan:
           fail-on-issues: false
